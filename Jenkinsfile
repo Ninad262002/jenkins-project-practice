@@ -11,7 +11,7 @@ git branch: 'main', url: 'https://github.com/Ninad262002/jenkins-project-practic
 }
 stage('deploy website') {
 steps {
-sshagent(credentials: ['ec2-ssh-key']) {
+sshagent(credentials: ['app-server-key']) {
 sh """
 scp -o StrictHostKeyChecking=no index.html ubuntu@${APP_SERVER}:/tmp/
 ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} 'sudo cp /tmp/index.html /var/www/html/index.html'
