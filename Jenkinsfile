@@ -1,43 +1,20 @@
 pipeline {
-
 agent any
-
 environment {
-
-APP_SERVER = "172.31.29.255"
+   APP_SERVER = "172.31.23.66"
 }
-
 stages {
-
-stage('Checkout') {
-
+stage('checkout') {
 steps {
-
-git branch: 'main',
-url: 'https://github.com/Ninad262002/jenkins-project-practice.git'
+git branch: 'main', url: 'https://github.com/Ninad262002/jenkins-projects.git'
 }
 }
-
-stage('Deploy Website') {
-
+stage('deploy website') {
 steps {
-
-sshagent(['app-server-key']) {
-
+sshagent(credentials: ['ec2-ssh-key']) {
 sh """
-
-scp \
-index.html \
-ubuntu@$APP_SERVER:/tmp/
-
-ssh \
-ubuntu@$APP_SERVER '
-
-sudo cp /tmp/index.html \
-/var/www/html/index.html
-
-'
-
+scp -o StrictHostKeyChecking=no index.html ubuntu@${APP_SERVER}:/tmp/
+ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} 'sudo cp /tmp/index.html /var/www/html/index.html'
 """
 }
 }
