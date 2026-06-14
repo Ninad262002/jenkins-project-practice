@@ -1,12 +1,12 @@
 pipeline {
 agent any
 environment {
-   APP_SERVER = "172.31.23.66"
+   APP_SERVER = "172.31.29.255"
 }
 stages {
 stage('checkout') {
 steps {
-git branch: 'main', url: 'https://github.com/Ninad262002/jenkins-projects.git'
+git branch: 'main', url: 'https://github.com/Ninad262002/jenkins-project-practice.git'
 }
 }
 stage('deploy website') {
